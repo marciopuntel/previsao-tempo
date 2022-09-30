@@ -34,7 +34,7 @@ Select2 + Ajax - para load da previsão dos próximos 7 dias da cidade seleciona
 
 ## Execução
 
-* Executar os scripts da estrutura da base de dados contidos na pasta /extras no Sql Server
-* Inserir registros nas tabelas (respeitando as restrições de chaves estrangeiras e primárias)
+* Criar base de dados e tabelas conforme estrutura em arquivos contidos na pasta "extras"
+* Inserir registros (aleatórios e manualmente) nas tabelas (respeitando as restrições de chaves estrangeiras e primárias)
 * Abrir o projeto no Visual Studio
-* Rodar o projeto clicando em Depuração > Iniciar sem depurar (Ctrl + F5). O sistema deverá apresentar uma tela como a "captura.png" que se encontra na pasta "extras"
+* Rodar o projeto clicando em Depuração > Iniciar sem depurar (Ctrl + F5). O sistema deverá apresentar uma tela como a "captura.png" que se encontra na pasta "extras", [**conforme exemplo**](https://github.com/marciopuntel/previsao-tempo/blob/main/extras/Captura.PNG)  
