@@ -1,0 +1,23 @@
+﻿@{
+    @model ClimaTempoSimples.Models.PrevisaoClima
+    ViewBag.Title = "Home";
+}
+
+<div class="jumbotron">
+    <h1>Clima Tempo Simples</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.Partial("~/Views/Cidade/_CidadeMaisQuente.cshtml")
+    </div>
+    <div class="col-md-6">
+        @Html.Partial("~/Views/Cidade/_CidadeMaisFria.cshtml")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("~/Views/Cidade/_CidadePesquisa.cshtml")
+
+    </div>
+</div>

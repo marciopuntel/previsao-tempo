@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Clima Tempo</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Clima Tempo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Clima", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <br />
+        <br />
+        <br />
+        <br />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Marcio Puntel</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script>
+        $('#cbo_cidade_busca').select2({
+            width: "resolve"
+        });
+
+        function imgClima(clima) {
+            var imagem="";
+            if (clima == 'ensolarado')
+                imagem = '<img src="imgs/ensolarado.png" style="float:left" />';
+            else if (clima == 'chuvoso')
+                imagem = '<img src="imgs/chuvoso.png" style="float:left" />';
+            else if (clima == 'instavel')
+                imagem = '<img src="imgs/instavel.png" style="float:left" />';
+            else if (clima == 'nublado')
+                imagem = '<img src="imgs/nublado.png" style="float:left" />';
+            else if (clima == 'tempestuoso')
+                imagem = '<img src="imgs/tempestuoso.png" style="float:left" />';
+            return imagem;
+        }
+
+        $('#cbo_cidade_busca').on("change", function () {
+            var cidade = $('#cbo_cidade_busca').val();
+            var obj = { cidade: cidade };
+            var idx = 0;
+            AjaxCall('/Clima/GetProximosDias/', JSON.stringify(obj), 'POST').done(function (response) {
+                idx = 0;
+                $('#proximos_dias_cidade').html('');
+                for (var i = 0; i < 7; i++) {
+                    idx = i + 1;
+                    $('#dia' + idx + '_data').html('');
+                    $('#dia' + idx + '_clima').html('');
+                    $('#dia' + idx + '_temperatura_minima').html('');
+                    $('#dia' + idx + '_temperatura_maxima').html('');
+                    $('#dia' + idx + '_box').hide();
+
+                }
+
+                if (response.length > 0) {
+                    var nomeCidade;
+                    idx = 0;
+                    for (var i = 0; i < response.length; i++) {
+                        nomeCidade = response[i].Cidade.Nome;
+                        idx = i + 1;
+                        $('#dia' + idx + '_data').append(response[i].DiaSemama);
+                        $('#dia' + idx + '_clima').append(imgClima(response[i].Clima) + response[i].Clima);
+                        $('#dia' + idx + '_temperatura_minima').append('Mínima: ' + response[i].TemperaturaMinima +'°');
+                        $('#dia' + idx + '_temperatura_maxima').append('Máxima: ' + response[i].TemperaturaMaxima + '°');
+
+                        $('#dia' + idx + '_box').removeAttr("style").show();
+                        $('#dia' + idx + '_box').addClass("fadeIn");
+                    }
+
+                    
+                    $('#proximos_dias_cidade').append('<h2>Clima para os próximos sete dias na cidade de ' + nomeCidade + '</h2>');
+                    
+                    
+                }
+            }).fail(function (error) {
+                alert(error.StatusText);
+            });
+        });
+
+        function AjaxCall(url, data, type) {
+            return $.ajax({
+                url: url,
+                type: type ? type : 'GET',
+                data: data,
+                contentType: 'application/json'
+            });
+        }
+
+
+    </script>
+</body>
+</html>

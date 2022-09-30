@@ -1,0 +1,30 @@
+﻿@{
+    var previsao = ViewBag.CidadesFrias as List<ClimaTempoSimples.Models.PrevisaoClima>;
+}
+
+<div class="card">
+    <div class="card-header">Cidades mais frias hoje</div>
+    <div class="card-body">
+
+        @foreach (var item in previsao)
+        {
+            <div class="row">
+                <div class="col-md-6">
+
+                    @item.Cidade.Nome/@item.Cidade.Estado.UF
+                </div>
+                <div class="col-md-3">
+                    @string.Format("Min. {0}°C", item.TemperaturaMinima.ToString("0"))
+                </div>
+                <div class="col-md-3">
+
+                    @string.Format("Máx. {0}°C", item.TemperaturaMaxima.ToString("0"))
+
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>
+

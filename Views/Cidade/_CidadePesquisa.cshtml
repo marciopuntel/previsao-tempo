@@ -1,0 +1,92 @@
+﻿@{
+    var cidades = ViewBag.TodasCidades as List<ClimaTempoSimples.Models.Cidade>;
+}
+
+<br />
+<br />
+<div style="float:right">
+    <div id="select2">
+        <label>Cidade:</label><br />
+        <select id="cbo_cidade_busca" class="combo">
+
+            @foreach (var cidade in cidades)
+            {
+                <option value="@cidade.Id" selected="selected">@cidade.Nome</option>
+            }
+            <option value="0" selected="selected"></option>
+        </select>
+    </div>
+
+</div>
+<br />
+<br />
+<div id="proximos_dias_cidade" style="text-align:center">
+
+</div>
+<div class="row" id="dias_previsao">
+    <div class="col-md-12">
+        <div class="card card-box" style="display:none" id="dia1_box">
+            <div class="card-header" id="dia1_data"></div>
+            <div class="card-body">
+                <div id="dia1_clima"></div>
+                <div id="dia1_temperatura_minima"></div>
+                <div id="dia1_temperatura_maxima"></div>
+            </div>
+        </div>
+        <div class="card card-box" style="display:none" id="dia2_box">
+            <div class="card-header" id="dia2_data"></div>
+            <div class="card-body">
+                <div id="dia2_clima"></div>
+                <div id="dia2_temperatura_minima"></div>
+                <div id="dia2_temperatura_maxima"></div>
+            </div>
+        </div>
+
+        <div class="card card-box" style="display:none" id="dia3_box">
+            <div class="card-header" id="dia3_data"></div>
+            <div class="card-body">
+                <div id="dia3_clima"></div>
+                <div id="dia3_temperatura_minima"></div>
+                <div id="dia3_temperatura_maxima"></div>
+            </div>
+        </div>
+
+        <div class="card card-box" style="display:none" id="dia4_box">
+            <div class="card-header" id="dia4_data"></div>
+            <div class="card-body">
+                <div id="dia4_clima"></div>
+                <div id="dia4_temperatura_minima"></div>
+                <div id="dia4_temperatura_maxima"></div>
+            </div>
+        </div>
+
+        <div class="card card-box" style="display:none" id="dia5_box">
+            <div class="card-header" id="dia5_data"></div>
+            <div class="card-body">
+                <div id="dia5_clima"></div>
+                <div id="dia5_temperatura_minima"></div>
+                <div id="dia5_temperatura_maxima"></div>
+            </div>
+        </div>
+
+        <div class="card card-box" style="display:none" id="dia6_box">
+            <div class="card-header" id="dia6_data"></div>
+            <div class="card-body">
+                <div id="dia6_clima"></div>
+                <div id="dia6_temperatura_minima"></div>
+                <div id="dia6_temperatura_maxima"></div>
+            </div>
+        </div>
+
+        <div class="card card-box" style="display:none" id="dia7_box">
+            <div class="card-header" id="dia7_data"></div>
+            <div class="card-body">
+                <div id="dia7_clima"></div>
+                <div id="dia7_temperatura_minima"></div>
+                <div id="dia7_temperatura_maxima"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
