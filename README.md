@@ -16,15 +16,20 @@ Os arquivos para a estrutura da base de dados estão na pasta "extras".
 ## Detalhes do backend
 
 .NetFramework 4.6.1
+
 Microsoft.AspNet.Mvc 5.2.7
+
 Entity Framework 
+
 SQL Server 
 
 
 ## Detalhes do frontend
 
 Bootstrap
+
 JQuery
+
 Select2 + Ajax - para load da previsão dos próximos 7 dias da cidade selecionada
 
 ## Execução
