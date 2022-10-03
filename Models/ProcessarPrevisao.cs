@@ -4,52 +4,54 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClimaTempoSimples.Models
 {
     public static class ProcessarPrevisao
     {
-        public static List<Models.PrevisaoClima> CidadesMaisFrias(ClimaDbContext _context)
-        {
-            DateTime data = DateTime.Now;
-            int numCidades = 3;
-
-            return _context.PrevisaoClima
-                .Where(d => d.DataPrevisao == data)
-                .OrderBy(t => t.TemperaturaMinima).ThenBy(t => t.TemperaturaMaxima)
-                .Include(e => e.Cidade.Estado)
-                .Take(numCidades)
-                .ToList();
-
-        }
-
-        public static List<Models.PrevisaoClima> CidadesMaisQuentes(ClimaDbContext _context)
+        public static async Task<List<Models.PrevisaoClima>> CidadesMaisFrias(ClimaDbContext _context)
         {
             DateTime data = DateTime.Now;
             
             int numCidades = 3;
 
-            return _context.PrevisaoClima
+            return await _context.PrevisaoClima
+                .Where(d => d.DataPrevisao == data)
+                .OrderBy(t => t.TemperaturaMinima).ThenBy(t => t.TemperaturaMaxima)
+                .Include(e => e.Cidade.Estado)
+                .Take(numCidades)
+                .ToListAsync();
+
+        }
+
+        public static async Task<List<Models.PrevisaoClima>> CidadesMaisQuentes(ClimaDbContext _context)
+        {
+            DateTime data = DateTime.Now;
+            
+            int numCidades = 3;
+
+            return await _context.PrevisaoClima
                 .Where(d => d.DataPrevisao == data)
                 .OrderByDescending(t => t.TemperaturaMaxima).ThenByDescending(t => t.TemperaturaMinima)
                 .Include(e => e.Cidade.Estado)
                 .Take(numCidades)
-                .ToList();
+                .ToListAsync();
 
         }
 
-        public static List<Models.PrevisaoClima> ProximosDias(ClimaDbContext _context, int cidade)
+        public static async Task<List<Models.PrevisaoClima>> ProximosDias(ClimaDbContext _context, int cidade)
         {
             DateTime data = DateTime.Now;
             
             int numDias = 7;
 
-            var previsao = _context.PrevisaoClima
+            var previsao = await _context.PrevisaoClima
                 .Where(d => d.DataPrevisao >= data && d.CidadeId==cidade)
                 .OrderBy(d => d.DataPrevisao)
                 .Include(e => e.Cidade.Estado)
                 .Take(numDias)
-                .ToList();
+                .ToListAsync();
 
             foreach(var item in previsao)
                 item.DiaSemama = item.DataPrevisao.ToString("dddd", new CultureInfo("pt-BR"));
