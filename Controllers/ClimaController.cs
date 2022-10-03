@@ -1,5 +1,6 @@
 ﻿using ClimaTempoSimples.Data;
 using ClimaTempoSimples.Models;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ClimaTempoSimples.Controllers
@@ -13,9 +14,9 @@ namespace ClimaTempoSimples.Controllers
             _context = new ClimaDbContext();
         }
 
-        public JsonResult GetProximosDias(int cidade)
+        public async Task<JsonResult> GetProximosDias(int cidade)
         {
-            var proxDias = ProcessarPrevisao.ProximosDias(_context, cidade);
+            var proxDias = await ProcessarPrevisao.ProximosDias(_context, cidade);
             return Json(proxDias, JsonRequestBehavior.AllowGet); ;
         }
     }

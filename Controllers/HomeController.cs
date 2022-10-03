@@ -1,5 +1,6 @@
 ﻿using ClimaTempoSimples.Data;
-using System.Linq;
+using System.Data.Entity;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace ClimaTempoSimples.Controllers
@@ -14,12 +15,12 @@ namespace ClimaTempoSimples.Controllers
         }
 
         
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             
-            ViewBag.CidadesFrias = Models.ProcessarPrevisao.CidadesMaisFrias(_context);
-            ViewBag.CidadesQuentes = Models.ProcessarPrevisao.CidadesMaisQuentes(_context);
-            ViewBag.TodasCidades = _context.Cidade.ToList();
+            ViewBag.CidadesFrias = await Models.ProcessarPrevisao.CidadesMaisFrias(_context);
+            ViewBag.CidadesQuentes = await Models.ProcessarPrevisao.CidadesMaisQuentes(_context);
+            ViewBag.TodasCidades = await _context.Cidade.ToListAsync();
 
             return View();
         }
